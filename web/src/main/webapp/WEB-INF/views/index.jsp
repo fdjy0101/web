@@ -1,22 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<!-- icon -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
 <title>패커</title>
+<%@ include file="include/header.jsp" %>
 </head>
 <body>
 <!--banner start here-->
@@ -26,7 +15,7 @@
   </div>
     
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a class="navbar-brand" href="/">패커</a>
+    <a class="navbar-brand" href="${path}">패커</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -34,10 +23,10 @@
         <ul class="navbar-nav">
         <c:if test="${member == null}">
           <li class="nav-item">
-            <a class="nav-link" href="/loginView">로그인</a>
+            <a class="nav-link" href="loginView">로그인</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/member_join">회원가입</a>
+            <a class="nav-link" href="member_join">회원가입</a>
           </li>
         </c:if>
         <c:if test="${member != null}">
@@ -45,13 +34,13 @@
             <a class="nav-link disabled" style="color: #dbcc00;">${member.user_id}님 환영 합니다.</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/memberUpdateView">마이 페이지</a>
+            <a class="nav-link" href="memberUpdateView">마이 페이지</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/logout">로그아웃</a>
+            <a class="nav-link" href="logout">로그아웃</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/memberDeleteView">회원탈퇴</a>
+            <a class="nav-link" href="memberDeleteView">회원탈퇴</a>
           </li>
         </c:if>
        <!-- <c:if test="${msg == false}">
@@ -63,7 +52,7 @@
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">커뮤니티</a>
             <div class="dropdown-menu">
-              <a class="dropdown-item" href="/board/list">자유게시판</a>
+              <a class="dropdown-item" href="${path}/board/list">자유게시판</a>
               <a class="dropdown-item" href="#">질문게시판</a>
               <a class="dropdown-item" href="#">가입인사</a>
             </div>
@@ -119,21 +108,21 @@
     <!-- 슬라이드 쇼 -->
       <div class="carousel-item active">
       <!--가로-->
-        <a href="#"><img class="d-block w-100" src="/resources/images/index1.jpg" alt="First slide"></a>
+        <a href="#"><img class="d-block w-100" src="${path}/resources/images/index1.jpg" alt="First slide"></a>
         <div class="carousel-caption d-none d-md-block">
           <h2>SEOUL FASHION WEEK</h2>
           <p>패커가 취재한 서울 패션위크</p>
         </div>
       </div>
       <div class="carousel-item">
-        <a href="#"><img class="d-block w-100" src="/resources/images/index2.jpg" alt="Second slide"></a>
+        <a href="#"><img class="d-block w-100" src="${path}/resources/images/index2.jpg" alt="Second slide"></a>
         <div class="carousel-caption d-none d-md-block">
           <h2>지속 가능한 패션</h2>
           <p>Easy to throw out<br>Better to throw out</p>
         </div>
       </div>
       <div class="carousel-item">
-        <a href="#"><img class="d-block w-100" src="/resources/images/index3.jpg" alt="Third slide"></a>
+        <a href="#"><img class="d-block w-100" src="${path}/resources/images/index3.jpg" alt="Third slide"></a>
         <div class="carousel-caption d-none d-md-block">
           <h2>패션 사진의 거장, 피터 린드버그와의 재회</h2>
           <p>작년 타계한 사진작가 피터 린드버그의 전시가 독일 쿤스트팔라스트 뮤지엄에서 열린다.</p>

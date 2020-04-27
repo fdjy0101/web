@@ -27,13 +27,13 @@ public class MemberController {
 	BCryptPasswordEncoder pwdEncoder;
 	
 	//회원가입 GET
-	@RequestMapping(value = "/member_join", method = RequestMethod.GET)
+	@RequestMapping(value = "member_join", method = RequestMethod.GET)
 	public void getJoin() throws Exception {
 		logger.info("get join");
 	}
 	
 	//회원가입 POST
-	@RequestMapping(value = "/member_join", method = RequestMethod.POST)
+	@RequestMapping(value = "member_join", method = RequestMethod.POST)
 	public String postJoin(MemberVO vo) throws Exception {
 		logger.info("post join");
 		String inputPass = vo.getUser_pw();
@@ -44,13 +44,13 @@ public class MemberController {
 	}
 	
 	//로그인 화면
-	@RequestMapping(value = "/loginView", method = RequestMethod.GET)
+	@RequestMapping(value = "loginView", method = RequestMethod.GET)
 	public void getLogin() throws Exception{
 		logger.info("get login");
 	}
 	
 	//로그인 POST
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "login", method = RequestMethod.POST)
 	public String login(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception{
 		logger.info("post login");
 		session.getAttribute("member");
@@ -67,20 +67,20 @@ public class MemberController {
 	}
 	
 	//로그아웃 GET
-	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	@RequestMapping(value = "logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception{
 		session.invalidate();
 		return "redirect:/";
 	}
 	
 	//회원정보 수정 GET
-	@RequestMapping(value="/memberUpdateView", method = RequestMethod.GET)
+	@RequestMapping(value="memberUpdateView", method = RequestMethod.GET)
 	public String registerUpdateView() throws Exception{
-		return "/memberUpdateView";
+		return "memberUpdateView";
 	}
 
 	//회원정보 수정 POST
-	@RequestMapping(value="/memberUpdate", method = RequestMethod.POST)
+	@RequestMapping(value="memberUpdate", method = RequestMethod.POST)
 	public String registerUpdate(MemberVO vo, HttpSession session) throws Exception{
 		service.memberUpdate(vo);
 		session.invalidate();
@@ -88,13 +88,13 @@ public class MemberController {
 	}
 
 	//회원탈퇴 get
-	@RequestMapping(value="/memberDeleteView", method = RequestMethod.GET)
+	@RequestMapping(value="memberDeleteView", method = RequestMethod.GET)
 	public String memberDeleteView() throws Exception{
-		return "/memberDeleteView";
+		return "memberDeleteView";
 	}
 	
 	//회원탈퇴 post
-	@RequestMapping(value="/memberDelete", method = RequestMethod.POST)
+	@RequestMapping(value="memberDelete", method = RequestMethod.POST)
 	public String memberDelete(MemberVO vo, HttpSession session, RedirectAttributes rttr) throws Exception{
 		service.memberDelete(vo);
 		session.invalidate();
@@ -104,7 +104,7 @@ public class MemberController {
 	
 	//비밀번호 체크
 	@ResponseBody
-	@RequestMapping(value="/passChk", method = RequestMethod.POST)
+	@RequestMapping(value="passChk", method = RequestMethod.POST)
 	public boolean passChk(MemberVO vo) throws Exception {
 		MemberVO login = service.login(vo);
 		boolean pwdChk = pwdEncoder.matches(vo.getUser_pw(), login.getUser_pw());
@@ -113,7 +113,7 @@ public class MemberController {
 	
 	//아이디 중복 체크
 	@ResponseBody
-	@RequestMapping(value="/idChk", method = RequestMethod.POST)
+	@RequestMapping(value="idChk", method = RequestMethod.POST)
 	public int idChk(MemberVO vo) throws Exception {
 		int result = service.idChk(vo);
 		return result;
@@ -121,7 +121,7 @@ public class MemberController {
 
 	//닉네임 중복 체크
 	@ResponseBody
-	@RequestMapping(value="/nickChk", method = RequestMethod.POST)
+	@RequestMapping(value="nickChk", method = RequestMethod.POST)
 	public int nickChk(MemberVO vo) throws Exception {
 		int result = service.nickChk(vo);
 		return result;
@@ -129,7 +129,7 @@ public class MemberController {
 	
 	//이메일 중복 체크
 	@ResponseBody
-	@RequestMapping(value="/emailChk", method = RequestMethod.POST)
+	@RequestMapping(value="emailChk", method = RequestMethod.POST)
 	public int emailChk(MemberVO vo) throws Exception {
 		int result = service.emailChk(vo);
 		return result;
@@ -137,7 +137,7 @@ public class MemberController {
 	
 	//휴대폰 중복 체크
 	@ResponseBody
-	@RequestMapping(value="/phoneChk", method = RequestMethod.POST)
+	@RequestMapping(value="phoneChk", method = RequestMethod.POST)
 	public int phoneChk(MemberVO vo) throws Exception {
 		int result = service.phoneChk(vo);
 		return result;

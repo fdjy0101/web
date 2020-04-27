@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+  <!--테스트 게시판 작성 -->
+  <insert id="insert" parameterType="com.jun.vo.TestBoardVO" useGeneratedKeys="true" keyProperty="bno">
+  	<selectKey keyProperty="bno" resultType="int" order="BEFORE">
+  		select test_board_seq.nextval from dual
+  	</selectKey>
+  	insert into test_board(bno,title,content,writer) 
+    values(#{bno},#{title},#{content},#{writer})
+  </insert>
+  
+  <!--파일 업로드 -->
+  <insert id="insertFile" parameterType="hashMap">
+  	insert into test_file(fno,bno,org_filename,stored_filename,file_size)
+  	values(test_fno_seq.nextval,#{bno},#{org_filename},#{stored_filename},#{file_size})
+  </insert>
+  
+  <!--첨부파일 조회 -->
+  <select id="selectFileList" parameterType="int" resultType="hashMap">
+  	select fno,org_filename,round(file_size/1024,1) as file_size
+  	from test_file
+  	where bno=#{bno}
+  	and del_gb='n'
+  	order by fno asc
+  </select>
+  
+  <!--첨부파일 다운 -->
+  <select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+  	select stored_filename,org_filename
+  	from test_file
+  	where fno=#{fno}
+  </select>
+  
+  <!--첨부파일 수정(삭제) -->
+  <update id="updateFile" parameterType="hashMap">
+  	update test_file set
+  	del_gb='y'
+  	where fno=#{fno}
+  </update>
+    
+  <!--테스트 게시판 목록 -->
+  <!-- <select id="list" resultType="com.jun.vo.TestBoardVO">
+    select bno,title,writer,regdate from test_board order by bno desc
+  </select> -->
+   
+  <!--테스트 게시물 조회  -->
+  <select id="read" parameterType="int" resultType="com.jun.vo.TestBoardVO">
+    select bno,title,content,writer,regdate from test_board where bno=#{bno}
+  </select>
+   
+  <!--테스트 게시물 수정  -->
+  <update id="update" parameterType="com.jun.vo.TestBoardVO">
+    update test_board set title=#{title},content=#{content} where bno=#{bno}
+  </update>
+  
+  <!--테스트 게시물 삭제  -->
+  <delete id="delete" parameterType="int">
+    delete from test_board where bno=#{bno}
+  </delete>
+   
+  <!--테스트 게시판 목록 페이징 -->
+  <select id="listPage" resultType="com.jun.vo.TestBoardVO" parameterType="com.jun.vo.SearchCriteria">
+    select bno,title,content,writer,regdate,readcount
+    from (select bno,title,content,writer,regdate,readcount,row_number() over(order by bno desc) as rnum
+    from test_board where 1=1 <include refid="search"></include>) test
+    where rnum between #{rowStart} and #{rowEnd}
+    order by bno desc
+  </select>
+   
+  <!--게시물 총 갯수  -->
+  <select id="listCount" resultType="int" parameterType="com.jun.vo.SearchCriteria">
+    select count(bno) from test_board where 1=1 <include refid="search"></include>
+    and bno > 0
+  </select>
+   
+  <!--동적 쿼리  -->
+  <sql id="search">
+    <if test="searchType != null">
+      <if test="searchType == 't'.toString()">and title like '%' || #{keyword} || '%'</if>
+      <if test="searchType == 'c'.toString()">and content like '%' || #{keyword} || '%'</if>
+      <if test="searchType == 'w'.toString()">and writer like '%' || #{keyword} || '%'</if>
+      <if test="searchType == 'tc'.toString()">and (title like '%' || #{keyword} || '%') or (content like '%' || #{keyword} || '%')</if>
+    </if>
+  </sql>
+  
+  <!-- 게시판 조회수 -->
+  <update id="boardReadcount" parameterType="int">
+  	update test_board
+  	set readcount=readcount+1
+  	where bno=#{bno}
+  </update>
+</mapper>

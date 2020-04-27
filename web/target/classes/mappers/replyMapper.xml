@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="replyMapper">
+  
+  <!--댓글 조회 -->
+  <select id="readReply" resultType="com.jun.vo.ReplyVO">
+    select rno,writer,content,regdate
+    from board_reply
+    where bno = #{bno}
+  </select>
+  
+  <!--댓글 작성 -->
+  <insert id="writeReply">
+    insert into board_reply(bno,rno,writer,content)
+    values(#{bno},(select nvl(max(rno)+1,1) from board_reply),#{writer},#{content})
+  </insert>
+  
+  <!-- 댓글 수정 -->
+  <update id="updateReply" parameterType="com.jun.vo.ReplyVO">
+    update board_reply set content = #{content} where rno = #{rno}
+  </update>
+  
+  <!-- 댓글 삭제 -->
+  <delete id="deleteReply" parameterType="com.jun.vo.ReplyVO">
+    delete from board_reply where rno = #{rno}
+  </delete>
+  
+  <!-- 선택된 댓글 조회 -->
+  <select id="selectReply" resultType="com.jun.vo.ReplyVO">
+    select bno,rno,writer,content,regdate
+    from board_reply
+    where rno = #{rno}
+  </select>
+
+</mapper>

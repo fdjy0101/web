@@ -1,37 +1,24 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/template.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<title>패커|회원가입</title>
+<%@ include file="include/header.jsp" %>
 <!-- daum 도로명주소 찾기 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-
 <!-- 확인할 기능 : 취소 -->
-<title>패커|회원가입</title>
-
 <script type="text/javascript">
 //모든 공백 체크 정규식
-var empJ = /\s/g;
-//아이디 정규식
+var empJ = /\s/g; 
+//아이디 정규식 4~16자의 소문자 영문, 숫자만 사용 가능
 var idJ = /^[a-z0-9_\-]{4,16}$/;
-//닉네임 정규식
+//닉네임 정규식 2~16자의 한글, 영문, 숫자 사용 가능합니다.
 var nickJ = /^[가-힣a-zA-Z0-9]{2,16}$/;
-// 비밀번호 정규식
+// 비밀번호 정규식 숫자, 문자, 특수문자 중 2가지 포함(8~15자)로 입력
 var pwJ = /^(?=.*[a-zA-Z0-9])(?=.*[a-zA-Z!@#$%^&*])(?=.*[0-9!@#$%^&*]).{8,15}$/;
-// 이름 정규식
+// 이름 정규식 한글 2~10자 이내(특수기호, 공백 사용 불가), 영문 20자 이내로 입력(공백 포함)
 var nameJ = /^[가-힣]{2,10}$|[a-zA-Z]{1,10}\s[a-zA-Z]{1,10}$/;
 // 이메일 검사 정규식
 var mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
@@ -42,7 +29,7 @@ var birthJ = false;
 $(document).ready(function(){
 	//가입 취소
 	$(".cancel").on("click", function(){
-		location.href = "/";
+		location.href = "${path}";
 	})
 	
 	//아이디 중복확인
@@ -57,7 +44,7 @@ $(document).ready(function(){
 			var user_id = $('#user_id').val();
 			$.ajax({
 				type : 'post',
-				url : '/idChk',
+				url : 'idChk',
 				dataType : "json",
 				data : {"user_id" : $("#user_id").val()},
 				success : function(data) {
@@ -89,7 +76,7 @@ $(document).ready(function(){
 			var user_nick = $('#user_nick').val();
 			$.ajax({
 				type : 'post',
-				url : '/nickChk',
+				url : 'nickChk',
 				dataType : "json",
 				data : {"user_nick" : $("#user_nick").val()},
 				success : function(data) {
@@ -121,7 +108,7 @@ $(document).ready(function(){
 			var user_email = $('#user_email').val();
 			$.ajax({
 				type : 'post',
-				url : '/emailChk',
+				url : 'emailChk',
 				dataType : "json",
 				data : {"user_email" : $("#user_email").val()},
 				success : function(data) {
@@ -153,7 +140,7 @@ $(document).ready(function(){
 			var user_phone = $('#user_phone').val();
 			$.ajax({
 				type : 'post',
-				url : '/phoneChk',
+				url : 'phoneChk',
 				dataType : "json",
 				data : {"user_phone" : $("#user_phone").val()},
 				success : function(data) {
@@ -298,7 +285,6 @@ $(document).ready(function(){
 		}
 		//생년월일 정규식
 		if(birthJ) {
-			console.log(birthJ);
 			inval_Arr[5] = true;
 		}else {
 			inval_Arr[5] = false;
@@ -326,7 +312,7 @@ $(document).ready(function(){
 			return false;
 		}
 		//성별 확인
-		if($('#user_phone').val() == ''){
+		if($('#user_gender').val() == ''){
 			inval_Arr[8] = false;
 			alert('성별을 확인하세요.');
 			$("#user_gender").focus();
@@ -415,7 +401,7 @@ function execPostCode() {
   </div>
 
   <div class="col-sm-6 col-md-offset-3">
-    <form action="/member_join" method="post" role="form" id="usercheck" name="member">
+    <form action="member_join" method="post" role="form" id="usercheck" name="member">
       <div class="form-group">
         <em style="color:red">*</em>
         <label for="user_id" class="control-label">아이디</label>

@@ -1,27 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="css/template.css">
-<!-- icon -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<title>패커|회원정보수정</title>
+<%@ include file="include/header.jsp" %>
 <!-- daum 도로명주소 찾기 api -->
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
-
-<title>패커|회원정보수정</title>
 <script type="text/javascript">
 //닉네임 정규식
 var nickJ = /^[가-힣a-zA-Z0-9]{2,16}$/;
@@ -37,7 +23,7 @@ var birthJ = false;
 $(document).ready(function(){
 	//취소
 	$(".cancel").on("click", function(){
-		location.href = "/";
+		location.href = "${path}";
 	})
 	//셀렉트 박스
 	$("#user_pwdq option").each(function(){
@@ -71,7 +57,7 @@ $(document).ready(function(){
 			var user_nick = $('#user_nick').val();
 			$.ajax({
 				type : 'post',
-				url : '/nickChk',
+				url : 'nickChk',
 				dataType : "json",
 				data : {"user_nick" : $("#user_nick").val()},
 				success : function(data) {
@@ -101,7 +87,7 @@ $(document).ready(function(){
 			var user_email = $('#user_email').val();
 			$.ajax({
 				type : 'post',
-				url : '/emailChk',
+				url : 'emailChk',
 				dataType : "json",
 				data : {"user_email" : $("#user_email").val()},
 				success : function(data) {
@@ -131,7 +117,7 @@ $(document).ready(function(){
 			var user_phone = $('#user_phone').val();
 			$.ajax({
 				type : 'post',
-				url : '/phoneChk',
+				url : 'phoneChk',
 				dataType : "json",
 				data : {"user_phone" : $("#user_phone").val()},
 				success : function(data) {
@@ -217,7 +203,7 @@ $(document).ready(function(){
 			return false;
 		}
 		$.ajax({
-			url : "/passChk",
+			url : "passChk",
 			type : "POST",
 			dateType : "json",
 			data : $("#updateForm").serializeArray(),
@@ -282,7 +268,7 @@ function execPostCode() {
 </head>
 <body>
 <section id="container">
-  <form id="updateForm" action="/memberUpdate" method="post">
+  <form id="updateForm" action="memberUpdate" method="post">
     <div class="form-group">
       <label class="control-label" for="user_id">아이디</label>
       <input class="form-control" type="text" id="user_id" name="user_id" value="${member.user_id}" readonly="readonly">

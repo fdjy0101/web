@@ -1,18 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>패커|자유게시판</title>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<%@ include file="../include/header.jsp" %>
 <script type="text/javascript">
 $(document).ready(function(){
 	var formObj = $("form[name='updateForm']");
 	$(".cancel_btn").on("click", function(){
-		location.href = "/board/readView?bno=${replyUpdate.bno}"
+		location.href = "${path}/board/readView?bno=${replyUpdate.bno}"
 				+ "&page=${scri.page}"
 				+ "&perPageNum=${scri.perPageNum}"
 				+ "&searchType=${scri.searchType}"
@@ -32,7 +30,7 @@ $(document).ready(function(){
   </div>
   
   <section id="container">
-    <form name="updateForm" role="form" method="post" action="/board/replyUpdate">
+    <form name="updateForm" role="form" method="post" action="${path}/board/replyUpdate">
       <input type="hidden" name="bno" value="${replyUpdate.bno}" readonly="readonly"/>
       <input type="hidden" id="rno" name="rno" value="${replyUpdate.rno}" />
       <input type="hidden" id="page" name="page" value="${scri.page}"> 

@@ -1,24 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<!-- icon -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
 <title>패커|자유게시판</title>
+<%@ include file="../include/header.jsp" %>
 <style type="text/css">
 li {list-style: none; float: left; padding: 6px;}
 </style>
@@ -30,7 +17,7 @@ li {list-style: none; float: left; padding: 6px;}
   </header>
   
   <div>
-    <%@include file="nav.jsp" %>
+    <%@ include file="nav.jsp" %>
   </div>
   
   <section id="container">
@@ -47,7 +34,7 @@ li {list-style: none; float: left; padding: 6px;}
           <tr>
             <td><c:out value="${list.bno}" /></td>
             <td>
-              <a href="/board/readView?bno=${list.bno}
+              <a href="${path}/board/readView?bno=${list.bno}
               &page=${scri.page}
               &perPageNum=${scri.perPageNum}
               &searchType=${scri.searchType}

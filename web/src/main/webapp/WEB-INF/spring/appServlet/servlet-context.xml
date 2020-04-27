@@ -23,7 +23,7 @@
 	</beans:bean>
 	
 	<!-- 패키지 안에 @Component, @Controller, @Service, @Repository가 설정된 클래스의 bean을 자동으로 생성해주는 옵션 -->
-	<context:component-scan base-package="com.jun.controller" />
+	<context:component-scan base-package="com.jun" />
 	
 	<!-- Controller가 처리하지 못하는 요청은 WAS가 대신 처리하라는 설정 -->
 	<default-servlet-handler/>

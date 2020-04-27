@@ -1,24 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<!-- icon -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
 <title>패커|자유게시판</title>
+<%@ include file="../include/header.jsp" %>
 <script type="text/javascript">
 $(document).ready(function(){
 	var formObj = $("form[name='writeForm']");
@@ -26,7 +13,7 @@ $(document).ready(function(){
 		if(fn_valiChk()){
 			return false;
 		}
-		formObj.attr("action", "/board/write");
+		formObj.attr("action", "${path}/board/write");
 		formObj.attr("method", "post");
 		formObj.submit();
 	});
@@ -64,7 +51,7 @@ function fn_addFile(){
   </div>
 			
   <section id="container">
-    <form name="writeForm" method="post" action="/board/write" enctype="multipart/form-data">
+    <form name="writeForm" method="post" action="${path}/board/write" enctype="multipart/form-data">
       <table class="table table-borderless">
       <c:if test="${member.user_id != null}">
       <tr>
@@ -97,7 +84,7 @@ function fn_addFile(){
       </c:if>
       <c:if test="${member.user_id == null}">
         <p>로그인 후에 작성하실 수 있습니다.</p>
-        <a href="/board/list">게시판으로 돌아가기</a>
+        <a href="${path}/board/list">게시판으로 돌아가기</a>
       </c:if>
       </table>
     </form>

@@ -1,23 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
 <title>패커|로그인</title>
-<link href="/resources/css/login.css" rel="stylesheet" />
+<%@ include file="include/header.jsp" %>
+<link href="${path}/resources/css/login.css" rel="stylesheet" />
 </head>
 <body class="my-login-page">
 <section class="h-100">
@@ -25,12 +14,12 @@
     <div class="row justify-content-md-center h-100">
       <div class="card-wrapper">
         <div class="brand">
-          <a href="/"><img src="/resources/images/logo.png"></a>
+          <a href="${path}"><img src="${path}/resources/images/logo.png"></a>
         </div>
         <div class="card fat">
           <div class="card-body">
             <h4 class="card-title text-center text-dark">Welcome to 패커</h4>
-			<form method="post" id="loginForm" action="/login">
+			<form method="post" id="loginForm" action="login">
 			<div class="form-group">
 			  <label for="user_id" class="control-label">아이디</label>
 			  <input type="text" class="form-control" id="user_id" name="user_id" placeholder="ID">
@@ -49,7 +38,7 @@
 		  </div>
 		</div>
 		<div class="footer">
-		  Copyright © <a href="/" class="badge badge-info">패커</a>
+		  Copyright © <a href="${path}" class="badge badge-info">패커</a>
 		  <p>배너를 누르면 홈으로 이동합니다.</p>
 		</div>
 	  </div>
@@ -83,8 +72,9 @@
     <c:if test="${msg == false}">
       <p style="color: red;">로그인 실패! 아이디와 비밀번호 확인해주세요.</p>
     </c:if>
-  </form> -->
+  </form>
   
+  -->
   
 </body>
 </html>

@@ -1,30 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<!-- icon -->
-<script src='https://kit.fontawesome.com/a076d05399.js'></script>
-<!-- jQuery library -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<!-- Popper JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-
 <title>패커|자유게시판</title>
+<%@ include file="../include/header.jsp" %>
 <script type="text/javascript">
 $(document).ready(function(){
 	var formObj = $("form[name='readForm']");
 	//수정 
 	$(".update_btn").on("click", function(){
-		formObj.attr("action", "/board/updateView");
+		formObj.attr("action", "${path}/board/updateView");
 		formObj.attr("method", "get");
 		formObj.submit();				
 	})
@@ -32,26 +19,26 @@ $(document).ready(function(){
 	$(".delete_btn").on("click", function(){
 		var deleteYN = confirm("게시물을 삭제하시겠습니까?");
 		if(deleteYN == true){
-			formObj.attr("action", "/board/delete");
+			formObj.attr("action", "${path}/board/delete");
 			formObj.attr("method", "post");
 			formObj.submit();
 		}
 	})
 	//목록
 	$(".list_btn").on("click", function(){
-		location.href = "/board/list?page=${scri.page}"
+		location.href = "${path}/board/list?page=${scri.page}"
 				+"&perPageNum=${scri.perPageNum}"
 				+"&searchType=${scri.searchType}&keyword=${scri.keyword}";
 	})
 	//댓글 작성
 	$(".replyWriteBtn").on("click", function(){
 		var formObj = $("form[name='replyForm']");
-		formObj.attr("action", "/board/replyWrite");
+		formObj.attr("action", "${path}/board/replyWrite");
 		formObj.submit();
 	});
 	//댓글 수정
 	$(".replyUpdateBtn").on("click", function(){
-		location.href = "/board/replyUpdateView?bno=${read.bno}"
+		location.href = "${path}/board/replyUpdateView?bno=${read.bno}"
 				+ "&page=${scri.page}"
 				+ "&perPageNum=${scri.perPageNum}"
 				+ "&searchType=${scri.searchType}"
@@ -60,7 +47,7 @@ $(document).ready(function(){
 	});
 	//댓글 삭제
 	$(".replyDeleteBtn").on("click", function(){
-		location.href = "/board/replyDeleteView?bno=${read.bno}"
+		location.href = "${path}/board/replyDeleteView?bno=${read.bno}"
 				+ "&page=${scri.page}"
 				+ "&perPageNum=${scri.perPageNum}"
 				+ "&searchType=${scri.searchType}"
@@ -71,7 +58,7 @@ $(document).ready(function(){
 function fn_fileDown(fileNo){
 	var formObj = $("form[name='readForm']");
 	$("#fno").attr("value", fileNo);
-	formObj.attr("action", "/board/fileDown");
+	formObj.attr("action", "${path}/board/fileDown");
 	formObj.submit();
 }
 </script>

@@ -1,13 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>패커|자유게시판</title>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<%@ include file="../include/header.jsp" %>
 <script type="text/javascript">
 $(document).ready(function(){
 	var formObj = $("form[name='updateForm']");
@@ -19,7 +17,7 @@ $(document).ready(function(){
 	
 	$(".cancel_btn").on("click", function(){
 		event.preventDefault();
-		location.href = "/board/readView?bno=${update.bno}"
+		location.href = "${path}/board/readView?bno=${update.bno}"
 				+ "&page=${scri.page}"
 				+ "&perPageNum=${scri.perPageNum}"
 				+ "&searchType=${scri.searchType}"
@@ -30,7 +28,7 @@ $(document).ready(function(){
 		if(fn_valiChk()){
 			return false;
 		}
-		formObj.attr("action", "/board/update");
+		formObj.attr("action", "${path}/board/update");
 		formObj.attr("method", "post");
 		formObj.submit();
 	})
@@ -76,7 +74,7 @@ function fn_del(value, name){
   <nav>홈 - 글 작성</nav>
 
   <section id="container">
-    <form name="updateForm" role="form" method="post" action="/board/update" enctype="multipart/form-data">
+    <form name="updateForm" role="form" method="post" action="${path}/board/update" enctype="multipart/form-data">
       <input type="hidden" name="bno" value="${update.bno}" readonly="readonly">
       <input type="hidden" id="page" name="page" value="${scri.page}">
       <input type="hidden" id="perPageNum" name="perPageNum" value="${scri.perPageNum}">
